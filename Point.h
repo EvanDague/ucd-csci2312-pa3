@@ -7,6 +7,7 @@
 #define CLUSTERING_POINT_H
 
 #include <iostream>
+#include <cmath>
 
 namespace Clustering {
 

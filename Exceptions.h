@@ -16,10 +16,18 @@ namespace Clustering {
         std::string __name;
 
     public:
-        OutOfBoundsEx(unsigned int c, int r);
-        unsigned int getCurrent() const;
-        int getRhs() const;
-        std::string getName() const;
+        OutOfBoundsEx(unsigned int c, int r) : __current(c), __rhs(r){
+            
+        }
+        unsigned int getCurrent() const{
+            return __current;
+        }
+        int getRhs() const{
+            return __rhs;
+        }
+        std::string getName() const{
+            return __name;
+        }
 
         friend std::ostream &operator<<(std::ostream &os, const OutOfBoundsEx &ex);
     };
@@ -31,10 +39,18 @@ namespace Clustering {
         std::string __name;
 
     public:
-        DimensionalityMismatchEx(unsigned int c, unsigned int r);
-        unsigned int getCurrent() const;
-        unsigned int getRhs() const;
-        std::string getName() const;
+        DimensionalityMismatchEx(unsigned int c, unsigned int r) : __current(c), __rhs(r){
+            
+        }
+        unsigned int getCurrent() const{
+            return __current;
+        }
+        unsigned int getRhs() const{
+            return __rhs;
+        }
+        std::string getName() const{
+            return __name;
+        }
 
         friend std::ostream &operator<<(std::ostream &os, const DimensionalityMismatchEx &ex);
     };
@@ -45,8 +61,12 @@ namespace Clustering {
         std::string __name;
 
     public:
-        ZeroClustersEx();
-        std::string getName() const;
+        ZeroClustersEx(){
+            
+        }
+        std::string getName() const{
+            return __name;
+        }
 
         friend std::ostream &operator<<(std::ostream &os, const ZeroClustersEx &ex);
     };
@@ -57,9 +77,15 @@ namespace Clustering {
         std::string __name, __filename;
 
     public:
-        DataFileOpenEx(std::string filename);
-        std::string getFilename() const;
-        std::string getName() const;
+        DataFileOpenEx(std::string filename) : __filename(filename){
+            
+        }
+        std::string getFilename() const{
+            return __filename;
+        }
+        std::string getName() const{
+            return __name;
+        }
 
         friend std::ostream &operator<<(std::ostream &os, const DataFileOpenEx &ex);
     };
@@ -69,8 +95,12 @@ namespace Clustering {
         std::string __name;
 
     public:
-        ZeroDimensionsEx();
-        std::string getName() const;
+        ZeroDimensionsEx(){
+            
+        }
+        std::string getName() const{
+            return __name;
+        }
 
         friend std::ostream &operator<<(std::ostream &os, const ZeroDimensionsEx &ex);
     };
@@ -80,8 +110,12 @@ namespace Clustering {
         std::string __name;
 
     public:
-        EmptyClusterEx();
-        std::string getName() const;
+        EmptyClusterEx(){
+            
+        }
+        std::string getName() const{
+            return __name;
+        }
 
         friend std::ostream &operator<<(std::ostream &os, const EmptyClusterEx &ex);
     };
