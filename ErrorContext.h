@@ -1,9 +1,10 @@
 //
-// Created by Ivo Georgiev on 11/13/15.
+// Created by Ivo Georgiev on 11/22/15.
 //
 
-#ifndef CLUSTERING_ERRORCONTEXT_H
-#define CLUSTERING_ERRORCONTEXT_H
+#ifndef PA5GAME_ERRORCONTEXT_H
+#define PA5GAME_ERRORCONTEXT_H
+
 
 
 /**
@@ -43,4 +44,4 @@ namespace Testing {
 }
 
 
-#endif //CLUSTERING_ERRORCONTEXT_H
+#endif //PA5GAME_ERRORCONTEXT_H

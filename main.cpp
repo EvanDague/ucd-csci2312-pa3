@@ -1,15 +1,12 @@
-// File: main.cpp
-//
-// Created by Ivo Georgiev on 11/22/15.
-//
-
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <vector>
 
 #include "ErrorContext.h"
-#include "ClusteringTests.h"
+#include "GamingTests.h"
+
+#include "Game.h"
 
 using std::cout;
 using std::endl;
@@ -20,54 +17,40 @@ int main() {
 
     const int NumIters = 3;
 
-    cout << endl << "Testing PA2!!" << endl << endl;
+    cout << endl << "Testing PA5!!" << endl << endl;
 
     cout << "NOTE:  If you see any memory errors, you MUST fix them!" << endl;
-    cout << "       Tests intentionally invoke destructors after they complete," << endl;
-    cout << "       so if you see a seg-fault after a passed test, it is" << endl;
+    cout << "       Tests intentionally invoke destructors after they complete,"
+    << endl;
+    cout << "       so if you see a seg-fault after a passed test, it is"
+    << endl;
     cout << "       probably a bug in your destructor." << endl;
 
     cout << endl;
 
     ErrorContext ec(cout);
 
-    // point tests
-    //test_point_smoketest(ec);
-    //test_point_id(ec, NumIters);
-    //test_point_getsetelem(ec, NumIters);
-    //test_point_copying(ec, NumIters);
-    //test_point_assignment(ec, NumIters);
-    //test_point_equality(ec, NumIters);
-    //test_point_comparison(ec, NumIters);
-    //test_point_CAO(ec, NumIters);
-    //test_point_SAO(ec, NumIters);
-    //test_point_distance(ec, NumIters);
-    //test_point_IO(ec, NumIters);
+    // piece tests
+    test_piece_smoketest(ec); // 1/1
+    //test_piece_print(ec, NumIters); //
+    test_piece_aging(ec, NumIters); // 6/6
+    test_piece_energy(ec, NumIters); // 3/3
+    //test_piece_turntaking(ec, NumIters); // 
+    test_piece_interaction(ec, NumIters); // 6/12
 
-    // cluster tests
-    //test_cluster_smoketest(ec);
-    //test_cluster_subscript(ec, NumIters);
-    //test_cluster_equality(ec, NumIters);
-    //test_cluster_order(ec, NumIters);
-    //test_cluster_addremove(ec, NumIters);
-    //test_cluster_contain(ec, NumIters);
-    //test_cluster_move(ec, NumIters);
-    //test_cluster_copying(ec, NumIters);
-    //test_cluster_assignment(ec, NumIters);
-    //test_cluster_CAO(ec, NumIters);
-    //test_cluster_SAO(ec, NumIters);
-    //test_cluster_centroid(ec, NumIters);
-    //test_cluster_id(ec, NumIters);
-    //test_cluster_initselection(ec, NumIters);
-    //test_cluster_IO(ec, NumIters);
+    // surroundings tests
+    //test_surroundings_smoketest(ec);
 
-    // kmeans tests
-    //test_kmeans_smoketest(ec);
-    //test_kmeans_run(ec, NumIters);
-    //test_kmeans_IO(ec, NumIters);
-    //test_kmeans_toofewpoints(ec, NumIters);
-    //test_kmeans_largepoints(ec, NumIters);
-    //test_kmeans_toomanyclusters(ec, NumIters);
+    // action tests
+    //test_action_smoketest(ec);
 
+    // game tests
+    test_game_smoketest(ec); // 3/3
+    test_game_populate(ec, NumIters); // 16/18
+    test_game_getpiece(ec, NumIters); // 15/18
+    //test_game_print(ec, NumIters);
+    //test_game_randomization(ec, NumIters);
+    //test_game_play(ec, NumIters);
+    
     return 0;
 }

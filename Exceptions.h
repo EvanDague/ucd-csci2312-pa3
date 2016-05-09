@@ -1,125 +1,83 @@
-// File: Exceptions.h
 //
-// Created by Ivo Georgiev on 3/7/16.
+// Created by Ivo Georgiev on 12/4/15.
 //
 
-#ifndef CLUSTERING_EXCEPTIONS_H
-#define CLUSTERING_EXCEPTIONS_H
+#ifndef PA5GAME_EXCEPTIONS_H
+#define PA5GAME_EXCEPTIONS_H
 
 #include <iostream>
 
-namespace Clustering {
+namespace Gaming {
 
-    class OutOfBoundsEx {
-        unsigned int __current;
-        int __rhs;
+    class GamingException {
+    protected:
         std::string __name;
-
+        virtual void __print_args(std::ostream &os) const = 0;
+        void setName(std::string name);
     public:
-        OutOfBoundsEx(unsigned int c, int r) : __current(c), __rhs(r){
-            
-        }
-        unsigned int getCurrent() const{
-            return __current;
-        }
-        int getRhs() const{
-            return __rhs;
-        }
-        std::string getName() const{
-            return __name;
-        }
-
-        friend std::ostream &operator<<(std::ostream &os, const OutOfBoundsEx &ex);
+        std::string getName() const { return __name; };
+        friend std::ostream &operator<<(std::ostream &os, const GamingException &ex);
     };
 
-
-
-    class DimensionalityMismatchEx {
-        unsigned int __current, __rhs;
-        std::string __name;
-
+    class DimensionEx : public GamingException {
+    protected:
+        unsigned __exp_width, __exp_height, __width, __height;
     public:
-        DimensionalityMismatchEx(unsigned int c, unsigned int r) : __current(c), __rhs(r){
-            
-        }
-        unsigned int getCurrent() const{
-            return __current;
-        }
-        unsigned int getRhs() const{
-            return __rhs;
-        }
-        std::string getName() const{
-            return __name;
-        }
-
-        friend std::ostream &operator<<(std::ostream &os, const DimensionalityMismatchEx &ex);
+        DimensionEx(unsigned expWidth, unsigned expHeight, unsigned width, unsigned height);
+        unsigned getExpWidth() const;
+        unsigned getExpHeight() const;
+        unsigned getWidth() const;
+        unsigned getHeight() const;
     };
 
-
-
-    class ZeroClustersEx {
-        std::string __name;
+    class InsufficientDimensionsEx : public DimensionEx {
+        void __print_args(std::ostream &os) const override;
 
     public:
-        ZeroClustersEx(){
-            
-        }
-        std::string getName() const{
-            return __name;
-        }
-
-        friend std::ostream &operator<<(std::ostream &os, const ZeroClustersEx &ex);
+        InsufficientDimensionsEx(unsigned minWidth, unsigned minHeight, unsigned width, unsigned height);
     };
 
-
-
-    class DataFileOpenEx {
-        std::string __name, __filename;
+    class OutOfBoundsEx : public DimensionEx {
+        void __print_args(std::ostream &os) const override;
 
     public:
-        DataFileOpenEx(std::string filename) : __filename(filename){
-            
-        }
-        std::string getFilename() const{
-            return __filename;
-        }
-        std::string getName() const{
-            return __name;
-        }
-
-        friend std::ostream &operator<<(std::ostream &os, const DataFileOpenEx &ex);
+        OutOfBoundsEx(unsigned maxWidth, unsigned maxHeight, unsigned width, unsigned height);
     };
 
+    class PositionEx : public GamingException {
+    private:
+        unsigned int __x, __y;
 
-    class ZeroDimensionsEx {
-        std::string __name;
+    protected:
+        void __print_args(std::ostream &os) const override;
 
     public:
-        ZeroDimensionsEx(){
-            
-        }
-        std::string getName() const{
-            return __name;
-        }
-
-        friend std::ostream &operator<<(std::ostream &os, const ZeroDimensionsEx &ex);
+        PositionEx(unsigned x, unsigned y);
     };
 
+    // to use in population methods
+    class PositionNonemptyEx : public PositionEx {
+    public:
+        PositionNonemptyEx(unsigned x, unsigned y);
+    };
 
-    class EmptyClusterEx {
-        std::string __name;
+    // to use in Game Piece getter
+    class PositionEmptyEx : public PositionEx {
+    public:
+        PositionEmptyEx(unsigned x, unsigned y);
+    };
+
+    // to use with position randomizer
+    class PosVectorEmptyEx : public GamingException {
+    protected:
+        void __print_args(std::ostream &os) const override;
 
     public:
-        EmptyClusterEx(){
-            
-        }
-        std::string getName() const{
-            return __name;
-        }
-
-        friend std::ostream &operator<<(std::ostream &os, const EmptyClusterEx &ex);
+        PosVectorEmptyEx();
     };
+
 }
 
 
-#endif //CLUSTERING_EXCEPTIONS_H
+
+#endif //PA5GAME_EXCEPTIONS_H
